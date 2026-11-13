@@ -16,6 +16,22 @@ interface QCategories {
     name: string;
     questions: Question[];
 }
+
+class QuizProgress {
+    completedQuizzes: string[] = [];
+
+    markCompleted(categoryName: string): void {
+        if (!this.completedQuizzes.includes(categoryName)) {
+            this.completedQuizzes.push(categoryName);
+        }
+    }
+
+    isCompleted(categoryName: string): boolean {
+        return this.completedQuizzes.includes(categoryName);
+    }
+}
+const quizProgress = new QuizProgress();
+
 // Quiz Categories and Questions
 // const creates a variable that cannot be reassigned.
 const categories: QCategories[] = [// this variable contains a list of quiz categories.
@@ -320,8 +336,6 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
         ]
     }
 ];
-// Keep track of completed quizzes
-let completedQuizzes: string[] = [];
 
 function displayCategories(): void {
     console.log("\n----- QUIZ GENERATOR -----");
@@ -334,7 +348,7 @@ function displayCategories(): void {
             continue;
         }
 
-        const completed = completedQuizzes.includes(category.name)
+        const completed = quizProgress.isCompleted(category.name)
     ? " (Completed)"
     : "";
 
@@ -368,9 +382,7 @@ async function startQuiz(category: QCategories): Promise<void> {
         }
     }
     // Mark this quiz as completed
-    if (!completedQuizzes.includes(category.name)) {
-    completedQuizzes.push(category.name);
-    }
+    quizProgress.markCompleted(category.name);
 
     console.log("\n----- QUIZ RESULTS -----");
     console.log(`Your score: ${score}/${category.questions.length}`);
@@ -423,8 +435,8 @@ async function startRandomQuiz(): Promise<void> {
     const randomCategory = categories[randomIndex];
 
 if (randomCategory) {
-    console.log("\n----- RANDOM QUIZ GENERATOR -----");
-    console.log(`Today's random quiz: ${randomCategory.name}`);
+    console.log("\n----- QUIZ GENERATOR -----");
+    console.log(`Today's quiz: ${randomCategory.name}`);
 
     await startQuiz(randomCategory);
 } else {
@@ -432,6 +444,4 @@ if (randomCategory) {
     rl.close();
 }
 }
-
 startRandomQuiz();
-
