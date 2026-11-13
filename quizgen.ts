@@ -1,23 +1,24 @@
 // This is not ai generated Code.
 // Lirbaries
 import { createInterface } from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
+import { stdin as input, stdout as output } from "node:process";// It allows your program to ask questions and receive answers from the user.
 
 const rl = createInterface({ input, output });
 // An interface describes the structure of an object. So basic it define the question and the answer.
 interface Question {
-    id: number;
-    prompt: string;
-    options: string[];
-    answer: string;
-    catergory?: string;
+    id: number;//A number identifying the question
+    prompt: string;// The actual question displayed
+    options: string[];// A list of possible answers
+    answer: string; // The correct answer
+    catergory?: string;// The question mark means this property is optional. A question doesn't have to include it.
 }
 interface QCategories {
     name: string;
     questions: Question[];
 }
-
-const categories: QCategories[] = [
+// Quiz Categories and Questions
+// const creates a variable that cannot be reassigned.
+const categories: QCategories[] = [// this variable contains a list of quiz categories.
     {
         name: "Thanksgiving",// This only fun Quiz.
         questions: [
@@ -318,8 +319,10 @@ const categories: QCategories[] = [
             }
         ]
     }
-
 ];
+// Keep track of completed quizzes
+let completedQuizzes: string[] = [];
+
 function displayCategories(): void {
     console.log("\n----- QUIZ GENERATOR -----");
     console.log("Available Quiz Categories:");
@@ -331,7 +334,11 @@ function displayCategories(): void {
             continue;
         }
 
-        console.log(`${i + 1}. ${category.name}`);
+        const completed = completedQuizzes.includes(category.name)
+    ? " (Completed)"
+    : "";
+
+        console.log(`${i + 1}. ${category.name}${completed}`);;
     }
 
     console.log("0 to Exit");
@@ -360,6 +367,10 @@ async function startQuiz(category: QCategories): Promise<void> {
             console.log(`Incorrect! The correct answer is: ${question.answer}`);
         }
     }
+    // Mark this quiz as completed
+    if (!completedQuizzes.includes(category.name)) {
+    completedQuizzes.push(category.name);
+    }
 
     console.log("\n----- QUIZ RESULTS -----");
     console.log(`Your score: ${score}/${category.questions.length}`);
@@ -373,27 +384,54 @@ if (playAgain.toLowerCase() === "y") {
 } else {
     console.log("Thanks for playing!");
     rl.close();
+    return;
 }
 }
-
 
 // Main program
 async function main(): Promise<void> {
 
-    // Randomly select a quiz category when the program opens
-    const randomIndex = Math.floor(Math.random() * categories.length);
-    const randomCategory = categories[randomIndex];
+    displayCategories();
 
-    if (!randomCategory) {
-        console.log("No quiz categories available.");
+    const choice = await rl.question("\nChoose a quiz category (0 to exit): ");
+    const selectedNumber = Number(choice);
+
+    if (selectedNumber === 0) {
+        console.log("Thanks for playing!");
         rl.close();
         return;
     }
 
+    if (
+        Number.isInteger(selectedNumber) &&
+        selectedNumber >= 1 &&
+        selectedNumber <= categories.length
+    ) {
+        const selectedCategory = categories[selectedNumber - 1];
+
+        if (selectedCategory) {
+            await startQuiz(selectedCategory);
+        }
+    } else {
+        console.log("Invalid choice. Please try again.");
+        await main();
+    }
+}
+async function startRandomQuiz(): Promise<void> {
+    // Randomly select a quiz category when the program opens
+    const randomIndex = Math.floor(Math.random() * categories.length);
+    const randomCategory = categories[randomIndex];
+
+if (randomCategory) {
     console.log("\n----- RANDOM QUIZ GENERATOR -----");
     console.log(`Today's random quiz: ${randomCategory.name}`);
 
     await startQuiz(randomCategory);
+} else {
+    console.log("No quiz categories available.");
+    rl.close();
+}
 }
 
-main();
+startRandomQuiz();
+
