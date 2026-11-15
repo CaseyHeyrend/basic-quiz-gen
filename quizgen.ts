@@ -348,7 +348,7 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
 
 function displayCategories(): void {
     console.log("\n----- QUIZ GENERATOR -----");
-    console.log("Available Quiz:");
+    console.log("Available Quizes:");
 
     for (let i = 0; i < categories.length; i++) {
         const category = categories[i];

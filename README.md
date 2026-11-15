@@ -16,7 +16,6 @@ My purpose for writing this program was to practice using TypeScript and get mor
 - I used TypeScript to create the quiz generator. I used interfaces to organize the questions and quiz categories, arrays to store the quizzes, and a class to keep track of completed quizzes. I also used async functions and await to handle user input. For the terminal input, I used Node.js built-in libraries, including readline/promises and process. I did not need any additional third-party libraries for the program.
 
 - To Start the program: npx tsx quizgen.ts
-
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
