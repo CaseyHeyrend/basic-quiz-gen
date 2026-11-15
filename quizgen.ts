@@ -12,11 +12,12 @@ interface Question {
     prompt: string;// The actual question displayed
     options: string[];// A list of possible answers
     answer: string; // The correct answer
-    catergory?: string;// The question mark means this property is optional. A question doesn't have to include it.
+    
 }
 interface QCategories {
     name: string;
     questions: Question[];
+    catergory?: string;// The question mark means this property is optional. A question doesn't have to include it.
 }
 
 class QuizProgress {
@@ -49,7 +50,7 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
                     "France", 
                     "Germany"
                     ],
-                answer: "Italy"
+                answer: "Italy",
             },
             {
                 id: 2,
@@ -95,7 +96,8 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
                     ],
                 answer: "Detroit Lions"
             }
-        ]
+        ],
+        catergory: "Holiday"
     },
         {
         name: "Web Frontend Development II",
@@ -155,7 +157,9 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
                 ],
                 answer: "Handling user interaction events, requesting data updates from the Model, and instructing the View to re-render."
             }
-        ]
+            
+        ],
+        catergory: "Web Development"
     },
         {
         name: "Web Services",
@@ -215,7 +219,8 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
                 ],
                 answer: "YAML or JSON"
             }
-        ]
+        ],
+        catergory: "Web Services"
     },
         {
         name: "TypeScript",
@@ -275,7 +280,8 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
                 ],
                 answer: "They allow you to create reusable components that work over a variety of types while still maintaining precise type safety and relationships between inputs and outputs."
             }
-        ]
+        ],
+        catergory: "TypeScript"
     },
         {
         name: "Baking",
@@ -335,13 +341,14 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
                 ],
                 answer: "Pre-baking the crust (often weighted down) before adding wet fillings to prevent the bottom from becoming soggy."
             }
-        ]
+        ],
+        catergory: "Baking"
     }
 ];
 
 function displayCategories(): void {
     console.log("\n----- QUIZ GENERATOR -----");
-    console.log("Available Quiz Categories:");
+    console.log("Available Quiz:");
 
     for (let i = 0; i < categories.length; i++) {
         const category = categories[i];
