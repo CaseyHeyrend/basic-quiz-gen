@@ -8,7 +8,7 @@ It's a basic quiz generator written in TypeScript. It has five categories, with 
 
 My purpose for writing this program was to practice using TypeScript and get more comfortable with a new programming language.
 
-[Software Demo Video]()
+[Software Demo Video](https://youtu.be/GLVp7i5fhrU)
 
 # Development Environment
 - I used Visual Studio Code (VS Code) to write and edit my code. I used Node.js to run the program and TypeScript as the programming language. I also used the VS Code terminal to test the quiz generator and check for errors.
