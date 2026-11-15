@@ -1,3 +1,5 @@
+// Quiz Generator
+// Author: Casey Heyrend
 // This is not ai generated Code.
 // Lirbaries
 import { createInterface } from "node:readline/promises";
