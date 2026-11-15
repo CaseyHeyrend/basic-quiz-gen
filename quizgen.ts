@@ -98,7 +98,7 @@ const categories: QCategories[] = [// this variable contains a list of quiz cate
         ]
     },
         {
-        name: "Web Frontend Development II ",
+        name: "Web Frontend Development II",
         questions: [
             {
                 id: 1,
